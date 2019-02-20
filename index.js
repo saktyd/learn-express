@@ -94,9 +94,19 @@ app.delete('/users', (req, res) => {
   });
 });
 
-// -----------------------------------------------------------------------------
-// RUN EXPRESS
+app.delete(`/users/:id`, (req, res) => {
+  const idUser = Number(req.params.id);
 
-app.listen(port, () => {
-  console.log(`Express app is listening on localhost:${port}`);
-});
+  users = users.filter(user => user.id !== idUser);
+
+  res.send({
+    message: 'One user has been deleted',
+    id: idUser
+  });
+}),
+  // -----------------------------------------------------------------------------
+  // RUN EXPRESS
+
+  app.listen(port, () => {
+    console.log(`Express app is listening on localhost:${port}`);
+  });
