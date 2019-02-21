@@ -2,6 +2,10 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const port = 8000
+<<<<<<< HEAD
+=======
+
+>>>>>>> 36154e4910bc15d2e66e90c11de86d8ffd551afe
 // -----------------------------------------------------------------------------
 // EXPRESS PLUGINS
 
@@ -10,6 +14,10 @@ app.use(bodyParser.json())
 
 // -----------------------------------------------------------------------------
 // DATA
+<<<<<<< HEAD
+=======
+
+>>>>>>> 36154e4910bc15d2e66e90c11de86d8ffd551afe
 let nextId = 8
 let users = [
   {
