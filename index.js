@@ -122,7 +122,7 @@ app.delete(`/users/:id`, (req, res) => {
   users = newUsers
 
   res.send({
-    message: 'One user has been updated',
+    message: 'One user has been deleted',
     id: id,
     newName: newName
   })
