@@ -1,16 +1,16 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const app = express();
-const port = 8000;
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = express()
+const port = 8000
 // -----------------------------------------------------------------------------
 // EXPRESS PLUGINS
 
 // Use body-parser into express
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 
 // -----------------------------------------------------------------------------
 // DATA
-let nextId = 8;
+let nextId = 8
 let users = [
   {
     id: 1,
@@ -40,7 +40,7 @@ let users = [
     id: 7,
     name: 'Jonathan'
   }
-];
+]
 
 // -----------------------------------------------------------------------------
 // EXPRESS ROUTES/ENDPOINTS
@@ -49,16 +49,16 @@ let users = [
 app.get('/', (req, res) => {
   res.send({
     message: 'Hello World'
-  });
-});
+  })
+})
 
 // List all users
 app.get('/users', (req, res) => {
   res.send({
     message: 'List of users',
     data: users
-  });
-});
+  })
+})
 
 // Create new user
 app.post('/users', (req, res) => {
@@ -68,45 +68,68 @@ app.post('/users', (req, res) => {
     const newUser = {
       id: nextId,
       name: req.body.name
-    };
+    }
 
     // Concat new user into newUsers variable
     // Then replace old users with new users
-    users = users.concat(newUser);
+    users = users.concat(newUser)
     // Increment nextId
-    nextId++;
+    nextId++
 
     // Send response
     res.send({
       message: 'Created new user',
       newUser: newUser,
       data: users
-    });
+    })
   }
-});
+})
 
 app.delete('/users', (req, res) => {
-  users = [];
+  users = []
 
   res.send({
     message: 'All users has been deleted',
     users: users
-  });
-});
+  })
+})
 
 app.delete(`/users/:id`, (req, res) => {
-  const idUser = Number(req.params.id);
+  const idUser = Number(req.params.id)
 
-  users = users.filter(user => user.id !== idUser);
+  users = users.filter(user => user.id !== idUser)
 
   res.send({
     message: 'One user has been deleted',
     id: idUser
-  });
-}),
-  // -----------------------------------------------------------------------------
-  // RUN EXPRESS
+  })
+})
 
-  app.listen(port, () => {
-    console.log(`Express app is listening on localhost:${port}`);
-  });
+app.delete(`/users/:id`, (req, res) => {
+  const id = Number(req.params.id)
+
+  const newName = req.body.name
+
+  const newUsers = users.map(user => {
+    if (user.id === id) {
+      user.name = newName
+      return user
+    } else {
+      return user
+    }
+  })
+
+  users = newUsers
+
+  res.send({
+    message: 'One user has been updated',
+    id: id,
+    newName: newName
+  })
+})
+// -----------------------------------------------------------------------------
+// RUN EXPRESS
+
+app.listen(port, () => {
+  console.log(`Express app is listening on localhost:${port}`)
+})
